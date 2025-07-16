@@ -39,12 +39,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Inefficient Search
-    searchInput.addEventListener('keyup', () => {
-        const searchTerm = searchInput.value.toLowerCase();
-        const filteredProducts = allProducts.filter(product => {
-            // Simple search, not very efficient
-            return product.name.toLowerCase().includes(searchTerm);
-        });
+ searchInput.addEventListener('keyup', () => {
+        const searchTerm = searchInput.value.trim().toLowerCase(); //ลบช่องว่าง
+        if (searchTerm === '') {
+            // Show all products if input is empty
+            displayProducts(allProducts);
+            return;
+        }
+        const filteredProducts = allProducts.filter(product =>
+            product.name.toLowerCase().includes(searchTerm)
+        );
+
         displayProducts(filteredProducts);
     });
 });
